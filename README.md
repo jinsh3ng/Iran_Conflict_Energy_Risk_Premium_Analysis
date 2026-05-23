@@ -1,75 +1,84 @@
-## Overview
+# 📈 Israel-Iran Conflict — Energy Risk Premium Analysis
+
+## 1. Overview
 
 Risk premiums typically increase during crises, especially wartime, as uncertainty drives investors to demand higher returns. This project analyzes how risk premiums evolve **before**, **during**, and **after** key conflict-related events involving Iran in June 2025:
 
-- **Israel attacks Iran** — *2025-06-13*  
-- **USA attacks Iran** — *2025-06-22*  
-- **Ceasefire announced** — *2025-06-24*  
+- **Israel attacks Iran** — *2025-06-13*
+- **USA attacks Iran** — *2025-06-22*
+- **Ceasefire announced** — *2025-06-24*
 
-To conduct this analysis, we focus on **natural gas** and **crude oil** futures, as they are highly sensitive to geopolitical developments, particularly in the Middle East—a region critical to global energy supply.
+To conduct this analysis, we focus on **natural gas** and **crude oil** futures, as they are highly sensitive to geopolitical developments, particularly in the Middle East — a region critical to global energy supply. For natural gas, we selected **TTF=F**, and for crude oil, **BZ=F**. Price data was extracted using the `yfinance` library.
 
-For natural gas, we selected **TTF=F**, and for crude oil, **BZ=F**. Price data was extracted using the `yfinance` library.
+> [!NOTE]
+> I conducted this analysis because I was curious — nothing groundbreaking, just myself coding and combining my finance knowledge into analytics.
 
----
-<img width="2089" height="985" alt="download" src="https://github.com/user-attachments/assets/9be5232f-6942-45f8-975d-002706b1d5f4" />
-<img width="2090" height="985" alt="download (1)" src="https://github.com/user-attachments/assets/94024305-294a-43d2-9d90-61fca199b51a" />
+## 2. 📁 Project Structure
 
----
+```
+Israel-Iran-Risk-Premium-Analysis/
+├── src/
+│   └── analyze_conflict.py    # Core analysis and plotting logic
+├── main.ipynb                 # Run the analysis here
+├── requirements.txt           # Python dependencies
+└── README.md
+```
 
-## Key Findings
+## 3. ⚙️ Setup Instructions
 
-### ⚔️**Israel Attack (June 13)**  
-Both TTF and BZ=F showed positive risk premiums that increased, peaking after four trading days before declining ahead of the US attack.  
-This drop likely reflects how, after the initial fear spike, traders realized the conflict was not escalating further and was unlikely to severely disrupt global energy markets.
-
-**Risk Premium Summary:**  
-- **TTF:** +1.61 USD average premium, peak of +5.57 USD on day 4  
-- **BZ=F:** +0.92 USD average premium, peak of +6.97 USD on day 3  
-
----
-
-### ⚔️**US Attack (June 22)**  
-For gas, the risk premium turned negative—an unexpected outcome. BZ=F also showed a negative premium.  
-This significant underpricing suggests that traders probably believed Iran would not retaliate and would likely agree to a ceasefire, especially given the destruction of its nuclear plants by the bunker buster bomb. 
-
-The market appears to have acted **efficiently** here, in line with the market hypothesis theory, as investors correctly anticipated a quick resolution to the conflict, which did occur shortly after.
-
-**Risk Premium Summary:**  
-- **TTF:** -3.75 USD average premium  
-- **BZ=F:** -9.69 USD average premium  
-
----
-   
-### 🕊️**Ceasefire (June 24)**  
-Both TTF and BZ=F exhibited steadily decreasing risk premiums following the ceasefire announcement.  
-This is expected, as investor sentiment improved and geopolitical uncertainty **receded**.
-
-**Risk Premium Summary:**  
-- **TTF:** -5.35 USD average premium (further 43% decline)  
-- **BZ=F:** -9.69 USD average premium (sustained negative premium)  
-
----
-
-## Conclusions
-The **type and perceived escalation** of conflict significantly influence risk premiums. Initial attacks tend to increase premiums as uncertainty spikes, but escalations can lead to declines when markets efficiently anticipate a resolution and price in the expected outcome early. This highlights the role of market efficiency in rapidly incorporating new information during geopolitical events.
-
---- 
-## Setup Instructions
-
-1. In the /Israel-Iran-Risk-Premium-Analysis directory, create a Python virtual environment and activate it:
-   ```bash
-   python -m venv .venv
-   .venv\Scripts\activate # The .venv activation command might differ depending on your operating system
-
-2. Install the required packages
+1. Install the required packages:
    ```bash
    pip install -r requirements.txt
+   ```
 
+2. Run the analysis in `main.ipynb`
 
-3. Run this code in `main.ipynb`:
-   
-   ```bash
-   from src.analyze_conflict import analyze_and_plot
-   tickers = ["BZ=F", "TTF=F"]
-   for i in tickers:
-       df, fig = analyze_and_plot(i, 21)
+---
+
+## 4. 🔍 Key Findings
+
+> [!IMPORTANT]
+> This analysis uses **daily closing prices** from `yfinance`. Intraday price reactions are not captured, and timezone differences between event announcements and market closing times may introduce a one-day lag — meaning the immediate shock on the day of each event may be understated.
+
+### ⚔️ Israel Attack (June 13)
+
+Both TTF and BZ=F showed positive risk premiums that increased, peaking after four trading days before declining ahead of the US attack. This drop likely reflects how, after the initial fear spike, traders realized the conflict was not escalating further and was unlikely to severely disrupt global energy markets.
+
+| Ticker | Avg Premium | Peak |
+|--------|-------------|------|
+| **TTF=F** | +1.61 USD | +5.57 USD on day 4 |
+| **BZ=F** | +0.92 USD | +6.97 USD on day 3 |
+
+---
+
+### ⚔️ US Attack (June 22)
+
+Both TTF and BZ=F turned negative — an unexpected outcome. This significant underpricing suggests traders believed Iran would not retaliate and would likely agree to a ceasefire, especially given the destruction of its nuclear plants. The market appears to have acted **efficiently**, in line with market hypothesis theory, as investors correctly anticipated a quick resolution.
+
+| Ticker | Avg Premium |
+|--------|-------------|
+| **TTF=F** | -3.75 USD |
+| **BZ=F** | -9.69 USD |
+
+---
+
+### 🕊️ Ceasefire (June 24)
+
+Both TTF and BZ=F exhibited steadily decreasing risk premiums following the ceasefire announcement, as investor sentiment improved and geopolitical uncertainty **receded**.
+
+| Ticker | Avg Premium | Change |
+|--------|-------------|--------|
+| **TTF=F** | -5.35 USD | Further 43% decline |
+| **BZ=F** | -9.69 USD | Sustained negative premium |
+
+---
+
+## 5. 📌 Conclusions
+
+The **type and perceived escalation** of conflict significantly influences risk premiums. Initial attacks tend to increase premiums as uncertainty spikes, but escalations can lead to declines when markets efficiently anticipate a resolution and price in the expected outcome early. This highlights the role of market efficiency in rapidly incorporating new information during geopolitical events.
+
+That said, a few limitations should be kept in mind. Since this analysis relies on **daily closing prices**, any intraday reactions to news announcements are not captured, and timezone differences may shift the observed impact by a day. The linear regression baseline also carries a low R² by design — energy prices are inherently noisy and non-linear, so the regression is not intended as a predictive model but simply as a neutral pre-event trend to measure deviations against. Additionally, the post-ceasefire window only covers **4 trading days**, so those findings should be interpreted cautiously.
+
+---
+
+Developed by **jinsh3ng**
